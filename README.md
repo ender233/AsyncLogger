@@ -6,6 +6,6 @@
 
 当前异步日志库前端是抽取的[Muduo日志库](https://github.com/chenshuo/muduo/tree/master/muduo/base), 核心是`FixedBuffer`的写入和转移.
 
-后端并没有采用`Muduo Logger`一样多个缓存, 而是使用两个阻塞队列+一个缓存的方式. 不需要关注阻塞队列的日志写入(阻塞队列会处理多个日志写入线程的枷锁).
+后端并没有采用`Muduo Logger`一样多个缓存, 而是使用两个[阻塞队列](https://github.com/qicosmos/cosmos)+一个缓存的方式. 不需要关注阻塞队列的日志写入(阻塞队列会处理多个日志写入线程的枷锁).
 
 而定时写入日志的时候,仅仅是交换了两个阻塞队列, 加锁区间非常小, 写的时候独占阻塞队列,不需要枷锁.
